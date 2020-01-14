@@ -1,6 +1,8 @@
 /* Copyright (C) 1999 Lucent Technologies */
 /* Excerpted from 'The Practice of Programming' */
 /* by Brian W. Kernighan and Rob Pike */
+/* extra comment added in Jan 2020 to make the file different... */
+
 
 #include <stdio.h>
 #include <string.h>
