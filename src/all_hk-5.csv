@@ -1,0 +1,235 @@
+; all_hk.csv
+; Version 1.0 - 29 March 2006 - Created for version 4.0 s/w onwards
+; version 2.0 - 12 July 2006 - Ver 4.5 software, modified bytes 190 and 191, added bytes 218 to 233.
+; version 3.0 - 28 April 2008 - corrected last time adjustment parameters
+; version 4.0 - 16 July 2008 - C1XS telemetry data
+; version 5.0 - 22 July 2008 - fixed errors found by Santa
+;
+; Parameter name, byte offset, number of bytes for parameter, note 1, min limit, max limit, Units, instrument mode to which limits apply,C,M,N,P,R
+;
+; note 1 - U=unsigned number, S=signed number, T=temperature, C= convert to text (See below)
+; C = y offset for x=0 (constant)
+; M = x multiplier (gradient)
+; N = x2 multiplier
+; P = x3 multiplier
+; R = x4 multiplier
+; Convert to text
+; each value to be converted to text requires a line starting '&' as shown below
+; &name,byte offset, bit mask, state0, state1, state2,.....
+;
+;
+; mode 0 limits (default)
+;  name, offset, bytes, type, min, max, units, mode, C,M,N,P,R
+; 
+TC Error flags,14,1,U,0,0, ,0,0,1,0,0,0
+Software_version,15,1,U,0,6, ,0,0,0.1,0,0,0
+VALID TC COUNTER,16,1,U,0,255, ,0,0,1,0,0,0
+REJECTED TC COUNTER,17,1,U,0,20, ,0,0,1,0,0,0
+REJECTED TC ERROR CODE,18,1,U,0,255, ,0,0,1,0,0,0
+Software flags (low byte),19,1,C,0,255, ,0,0,1,0,0,0
+&XSM processing,19,128,DISABLED,ENABLED
+&C1XS processing,19,64,DISABLED,1,ENABLED
+&Door radiation status,19,32,OPEN,SHUT
+&Door radiation movement,19,16,-,CLOSING
+&XSM shutter status,19,8,OPEN,CLOSED
+&XSM entering annealing,19,4,FALSE,TRUE
+&XSM on for >1s,19,2,FALSE,TRUE
+&XSM switched on,19,1,FALSE,TRUE
+RECEIVED CRC OF BAD TC,20,2,U,0,65535, ,0,0,1,0,0,0
+CALCULTED CRC OF BAD TC,22,2,U,0,65535, ,0,0,1,0,0,0
+DOOR STATE,24,1,C,0,255, ,0,0,1,0,0,0
+&door_sw_state,24,15,Open,Closing,Opening,Closed,Switch_fail
+&door_e2_state,24,240,Open,Closing,Opening,Closed
+;Mode,25,1,U,0,0, ,0,0,1,0,0,0
+Mode,25,1,C,0,6, ,0,0,1,0,0,0
+;&sw_mode,25,240,Standby,Operating,Test,Calibrate,Resting
+&sw_mode,25,240,raw
+&sw_submode,25,15,Time_tagged,LC_Spectrum,HC_Spectrum,Lunar,Compressed_LC,TT_3pix,TT,HRLCS,Auto2
+Max CAN PACKETS QUEUE,26,2,U,0,0, ,0,0,1,0,0,0
+LAST TIME ADJUSTMENT,28,4,S,0,0, ,0,0,1,0,0,0
+LAST TIME ADJUSTMENT fraction,32,2,U,0,0, ,0,0,1,0,0,0
+WORST BACKGROUND TIME,34,2,U,0,65535, ,0,0,1,0,0,0
+WORST IDLE LOOP COUNT,36,2,U,0,65535, ,0,0,1,0,0,0
+CAN TX NOT READY COUNTER,38,2,U,0,65535, ,0,0,1,0,0,0
+TX PUS PACKETS LOST,40,2,U,0,65535, ,0,0,1,0,0,0
+RETURN STACK POINTER,42,1,U,0,255, ,0,0,1,0,0,0
+PARAMETER STACK POINTER,43,1,U,0,255, ,0,0,1,0,0,0
+EEPROM WRITE RETRIES,44,2,U,0,65535, ,0,0,1,0,0,0
+EEPROM WRITE FAILURES,46,2,U,0,65535, ,0,0,1,0,0,0
+DOOR CLOSE - SECONDS LEFT,48,4,U,0,4294967296, ,0,0,1,0,0,0
+Software flags (high byte),52,1,C,0,255, ,0,0,1,0,0,0
+;&Detector 23 status,52,16,Running,Inhibited
+&XSM Cal sequence,52,8,-,Started
+&XSM annealing heater,52,4,-,SELECTED
+&TC XSM anneal start Rxd,52,2,-,TRUE
+&TC XSM anneal stop Rxd,52,1,-,TRUE
+Door close integrator,53,1,U,0,255, ,0,0,1,0,0,0
+Seconds since last cal,54,2,U,0,65535, ,0,0,1,0,0,0
+LAST TC,56,6,U,0,1677215, ,0,0,1,0,0,0
+Penultimate TC,62,6,U,0,1677215, ,0,0,1,0,0,0
+; SCD Parameters
+SCD16_23,68,1,U,0,255, ,0,0,1,0,0,0
+SCD8_15,69,1,U,0,255, ,0,0,1,0,0,0
+SCD0_7,70,1,U,0,255, ,0,0,1,0,0,0
+SCD POWER,71,1,U,0,255, ,0,0,1,0,0,0
+SCD0_events,72,2,U,0,65535, ,0,0,1,0,0,0
+SCD1_events,78,2,U,0,65535, ,0,0,1,0,0,0
+SCD2_events,84,2,U,0,65535, ,0,0,1,0,0,0
+SCD3_events,90,2,U,0,65535, ,0,0,1,0,0,0
+SCD4_events,74,2,U,0,65535, ,0,0,1,0,0,0
+SCD5_events,80,2,U,0,65535, ,0,0,1,0,0,0
+SCD6_events,86,2,U,0,65535, ,0,0,1,0,0,0
+SCD7_events,92,2,U,0,65535, ,0,0,1,0,0,0
+SCD8_events,76,2,U,0,65535, ,0,0,1,0,0,0
+SCD9_events,82,2,U,0,65535, ,0,0,1,0,0,0
+SCD10_events,88,2,U,0,65535, ,0,0,1,0,0,0
+SCD11_events,94,2,U,0,65535, ,0,0,1,0,0,0
+SCD12_events,96,2,U,0,65535, ,0,0,1,0,0,0
+SCD13_events,102,2,U,0,65535, ,0,0,1,0,0,0
+SCD14_events,108,2,U,0,65535, ,0,0,1,0,0,0
+SCD15_events,114,2,U,0,65535, ,0,0,1,0,0,0
+SCD16_events,98,2,U,0,65535, ,0,0,1,0,0,0
+SCD17_events,104,2,U,0,65535, ,0,0,1,0,0,0
+SCD18_events,110,2,U,0,65535, ,0,0,1,0,0,0
+SCD19_events,116,2,U,0,65535, ,0,0,1,0,0,0
+SCD20_events,100,2,U,0,65535, ,0,0,1,0,0,0
+SCD21_events,106,2,U,0,65535, ,0,0,1,0,0,0
+SCD22_events,112,2,U,0,65535, ,0,0,1,0,0,0
+SCD23_events,118,2,U,0,65535, ,0,0,1,0,0,0
+;
+; analogue signals
+; xsm
+XSM+5,120,2,S,-2400,0.5,Volts,0,0,0.039,0,0,0
+XSM+12,122,2,S,0,0.5,Volts,0,0,0.059,0,0,0
+XSM-12,124,2,S,-0.5,0.5,Volts,0,0.0772,0.0498,0,0,0
+XSM_PIN,126,2,S,-25,60,degC,0,15.88,-0.467,0,0,0
+XSM_BOX,128,2,S,-280,-270,degC,0,-273,3.90625,0,0,0
+XSM_HV,130,2,S,0,0,Volts,0,0,1.5625,0,0,0
+XSM_LEAK,132,2,S,0,0.5,pA,0,0,0.78125,0,0,0
+; Temperatures
+T_PCU,134,2,T,-40,50,degC,0,47.14,-0.00857,0,0,0
+T_HK,136,2,T,-40,50,degC,0,47.14,-0.00857,0,0,0
+T_-Y,138,2,T,-40,50,degC,0,47.14,-0.00857,0,0,0
+T_VID,140,2,T,-40,50,degC,0,47.14,-0.00857,0,0,0
+T_3D+1,142,2,T,-40,50,degC,0,47.14,-0.00857,0,0,0
+T_3D+2,144,2,T,-40,50,degC,0,47.14,-0.00857,0,0,0
+T_SCD_B,146,2,T,-40,20,degC,0,47.14,-0.00857,0,0,0
+T_SCD_E,148,2,T,-40,20,degC,0,47.14,-0.00857,0,0,0
+; c1xs
+DCIXS+12,150,2,S,11.5,12.5,Volts,0,0,0.001686,0,0,0
+DCIXS+5,152,2,S,4.6,5.5,Volts,0,0,0.000712,0,0,0
+DCIXS+3_3,154,2,S,3.0,3.5,Volts,0,0,0.00061,0,0,0
+XSM_PELTIER,156,2,S,1.4,1.8,Volts,0,0,0.000305,0,0,0
+DCIXS-12,158,2,S,-12.5,-11.5,Volts,0,0,0.001686,0,0,0
+DCIXS-5,160,2,S,-5.5,-4.6,Volts,0,0,0.000712,0,0,0
+MOTOR P1,162,2,S,-5,5,Volts,0,0,0.001686,0,0,0
+MOTOR P2,164,2,S,-5,5,Volts,0,0,0.001686,0,0,0
+SCD_SS,166,2,S,-0.5,4.5,Volts,0,0,0.001686,0,0,0
+SCD_OG,168,2,S,-0.5,0.5,Volts,0,0,0.00061,0,0,0
+SCD_RD,170,2,S,-0.5,4.5,Volts,0,0,0.002386,0,0,0
+SCD_OD,172,2,S,-0.5,4.5,Volts,0,0,0.00627,0,0,0
+SCD+39,174,2,S,-1,4.5,Volts,0,0,0.00627,0,0,0
+C1XS_0V,176,2,S,-0.5,0.5,Volts,0,0,0.000305,0,0,0
+;
+; DOOR STATUS
+;
+; DOOR STATUS,178,1,U,0,65535, ,0,0,1,0,0,0
+DOOR STATUS,178,1,C,0,65535, ,0,0,1,0,0,0
+&LAUNCH-LOCK LATCH,178,64,DISABLED,ENABLED
+&LATCH MICROSWITCH BYPASS,178,32,DISABLED,ENABLED
+&LATCH OPEN,178,16,FALSE,TRUE
+&LATCH SHUT,178,8,FALSE,TRUE
+&DOOR MOVING,178,4,FALSE,TRUE
+;&DOOR OPEN,178,2,FALSE,TRUE
+;&DOOR SHUT,178,1,FALSE,TRUE
+DOOR STEP COUNTER,180,2,U,0,65535, ,0,0,1,0,0,0
+;
+; XSM STATUS
+;
+;XSM_Control,182,1,U,0,65535, ,0,0,1,0,0,0
+XSM_Control,182,1,C,0,65535, ,0,0,1,0,0,0
+&PELTIER SUPPLY,182,16,OFF,ON
+&PELTIER MODE,182,8,COOL,HEAT
+&HV BIAS,182,4,OFF,ON
+&HV OVERRIDE,182,2,DISABLED,ENABLED
+&XSM FIFO WRITE,182,1,DISABLED,ENABLED
+;XSM_Status,183,1,U,0,65535, ,0,0,1,0,0,0
+XSM_Status,183,1,C,0,65535, ,0,0,1,0,0,0
+&XSM DETECTOR OVER-TEMP,183,4,FALSE,TRUE
+&XSM HV OVER-VOLTAGE,183,2,FALSE,TRUE
+XSM DAC0,184,1,U,0,255, ,0,0,1,0,0,0
+XSM DAC1,185,1,U,0,255, ,0,0,1,0,0,0
+;XSM_State,186,1,U,0,15,State,0,0,1,0,0,0
+XSM_State,186,1,C,0,15,State,0,0,1,0,0,0
+&XSM STATE,186,15,Off,Starting,Cooling,Cool,Calibrate,Opening,Operating,Closing,High-Leakage,Pre-anneal,Anneal,Closing
+XSM_Seconds,188,2,U,0,65535,Secs,0,0,1,0,0,0
+Patch_Num,190,1,U,0,255, ,0,0,1,0,0,0
+Boot_Page,191,1,U,0,255, ,0,0,1,0,0,0
+SS DAC AVERAGE,192,2,U,0,65535, ,0,0,1,0,0,0
+OG DAC AVERAGE,194,2,U,0,65535, ,0,0,1,0,0,0
+RD DAC AVERAGE,196,2,U,0,65535, ,0,0,1,0,0,0
+OD DAC AVERAGE,198,2,U,0,65535, ,0,0,1,0,0,0
+SS DAC DEMAND,200,1,U,0,255, ,0,0,1,0,0,0
+OG DAC DEMAND,201,1,U,0,255, ,0,0,1,0,0,0
+RD DAC DEMAND,202,1,U,0,255, ,0,0,1,0,0,0
+OD DAC DEMAND,203,1,U,0,255, ,0,0,1,0,0,0
+; spare 204 to 207
+Max events/s this period,208,2,U,0,65535, ,0,0,1,0,0,0
+Mem_Cksum,210,4,U,0,0, ,0,0,1,0,0,0
+Addr_T6P55,214,2,U,0,65535, ,0,0,1,0,0,0
+ITL_ID,216,2,U,0,65535, ,0,0,1,0,0,0
+XSM_Total_Counts,218,2,U,0,65535, ,0,0,1,0,0,0
+; spare 220 to 225
+XSM_Spectra,226,2,U,0,65535, ,0,0,1,0,0,0
+XSM_FIFO_2,228,2,U,0,65535, ,0,0,1,0,0,0
+XSM_FIFO_3,230,2,U,0,65535, ,0,0,1,0,0,0
+XSM_RICA,232,2,U,0,65535, ,0,0,1,0,0,0
+XSM_FIFO_ERR1,234,4,U,0,4294967296, ,0,0,1,0,0,0
+XSM_FIFO_ERR2,238,4,U,0,4294967296, ,0,0,1,0,0,0
+Door_position,242,2,S,0.,1.5,Volts,0,0,0.00061,0,0,0
+Radiation_Mon_VLG,244,2,S,0,5,Volts,0,0,0.00061,0,0,0
+Radiation_Mon_LG,246,2,S,0,5,Volts,0,0,0.00061,0,0,0
+Radiation_Mon_MG,248,2,S,0,5,Volts,0,0,0.00061,0,0,0
+Radiation_Mon_HG,250,2,S,0,5,Volts,0,0,0.00061,0,0,0
+Radiation_Mon_12V,252,2,S,11.0,12.5,Volts,0,0,0.001686,0,0,0
+Radiation_Mon_VHG,254,2,S,0,5,Volts,0,0,0.00061,0,0,0
+;
+;mode 1 limits
+; XSM
+;
+DVX+5,120,2,S,4.6,5.1,Volts,1,0,0.039,0,0,0
+DVX+12,122,2,S,11.5,12.1,Volts,1,0,0.059,0,0,0
+DVX-12,124,2,S,-12.1,-11.5,Volts,1,0.0772,0.0498,0,0,0
+DTXPIN,126,2,S,-25,15,degC,1,15.88,-0.467,0,0,0
+DTXBOX,128,2,S,-40,40,degC,1,-273,3.90625,0,0,0
+DVXHV,130,2,S,70,150,Volts,1,0,1.5625,0,0,0
+DIXLEAK,132,2,S,0,30,pA,1,0,0.78125,0,0,0
+;
+;C1XS
+;
+DTSCD_B,146,2,T,-40,0,degC,1,47.14,-0.00857,0,0,0
+DTSCD_E,148,2,T,-40,0,degC,1,47.14,-0.00857,0,0,0
+DVSCD_SS,166,2,S,8,9.5,Volts,1,0,0.001686,0,0,0
+DVSCD_OG,168,2,S,2,3.5,Volts,1,0,0.00061,0,0,0
+DVSCD_RD,170,2,S,16,17.5,Volts,1,0,0.002386,0,0,0
+DVSCD_OD,172,2,S,28,31,Volts,1,0,0.00627,0,0,0
+DVSCD+39,174,2,S,37,42,Volts,1,0,0.00627,0,0,0
+;
+;
+;mode 4 limits
+;
+DVX+5,120,2,S,-2400,0.5,Volts,4,0,0.039,0,0,0
+DVX+12,122,2,S,0,0.5,Volts,4,0,0.059,0,0,0
+DVX-12,124,2,S,-0.5,0.5,Volts,4,0.0772,0.0498,0,0,0
+DTXPIN,126,2,S,-25,60,degC,4,15.88,-0.467,0,0,0
+DTXBOX,128,2,S,-280,-270,degC,4,-273,3.90625,0,0,0
+DVXHV,130,2,S,0,0,Volts,4,0,1.5625,0,0,0
+DIXLEAK,132,2,S,0,0.5,pA,4,0,0.78125,0,0,0
+DTSCD_B,146,2,T,-40,20,degC,4,47.14,-0.00857,0,0,0
+DTSCD_E,148,2,T,-40,20,degC,4,47.14,-0.00857,0,0,0
+DVSCD_SS,166,2,S,-0.5,4.5,Volts,4,0,0.001686,0,0,0
+DVSCD_OG,168,2,S,-0.5,0.5,Volts,4,0,0.00061,0,0,0
+DVSCD_RD,170,2,S,-0.5,4.5,Volts,4,0,0.002386,0,0,0
+DVSCD_OD,172,2,S,-0.5,4.5,Volts,4,0,0.00627,0,0,0
+DVSCD+39,174,2,S,-1,4.5,Volts,4,0,0.00627,0,0,0
+;
