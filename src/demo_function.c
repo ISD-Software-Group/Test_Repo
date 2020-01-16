@@ -8,5 +8,6 @@ void demo_function(){
     printf("I'm a demo function!\n");
 
 	printf("Jeb has made a change to demo function!\n");
+	printf("Kaylee thinks demo function needs more flash...")
 
 }
